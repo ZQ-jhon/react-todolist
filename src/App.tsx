@@ -1,26 +1,21 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
-
-const App: React.FC = () => {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import ReactDOM from 'react-dom';
+export default class App extends React.Component {
+  public num = 0;
+  public clickFn = (e: React.KeyboardEvent) =>  {
+    if(e.which === 13) {
+      this.num  += 1;
+      ReactDOM.render(this.render(), document.querySelector('#root'));
+    }
+  }
+  public render() {
+    return (
+      <div className="App">
+        <input type="text" onKeyPress={this.clickFn} />
+        {this.num}
+      </div>
+    );
+  }
 }
 
-export default App;
