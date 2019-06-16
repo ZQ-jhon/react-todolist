@@ -1,19 +1,59 @@
-import React from 'react';
+import React, { Props } from 'react';
 import './App.css';
-import ReactDOM from 'react-dom';
-export default class App extends React.Component {
-  public num = 0;
-  public clickFn = (e: React.KeyboardEvent) =>  {
-    if(e.which === 13) {
-      this.num  += 1;
-      ReactDOM.render(this.render(), document.querySelector('#root'));
+import LOCAL_STORAGE_FIELD from './CONFIG';
+export default class App extends React.Component<Props<any>, {}> {
+  public state: any;
+  constructor(props: any) {
+    super(props);
+    const list = LOCAL_STORAGE_FIELD.list.length === 0 ? [] : LOCAL_STORAGE_FIELD.list.split(',');
+    this.state  = {
+      list,
+      inputValue: '',
+    };
+  }
+  private updateView() {
+    // 值合法，再执行
+    if(!!this.state.inputValue) {
+      this.setState({
+        list: [...this.state.list, this.state.inputValue],
+        inputValue: '',
+      }, () => localStorage.setItem('list', this.state.list));
     }
+  }
+  public keypress = (e: React.KeyboardEvent) =>  e.which === 13 ? this.updateView(): '';
+ 
+  public handleChange(e:any) {
+    this.setState({
+      inputValue: e.target.value,
+    });
+  }
+
+  public deleteItem(i: number){
+   const list = [...this.state.list];
+   list.splice(i,1);
+   this.setState({
+      list,
+    }, () => localStorage.setItem('list', list.join(',')));
   }
   public render() {
     return (
       <div className="App">
-        <input type="text" onKeyPress={this.clickFn} />
-        {this.num}
+        <ul>
+          <input type="text" value={this.state.inputValue} onKeyPress={this.keypress.bind(this)} onChange={this.handleChange.bind(this)} />
+          <button onClick={this.updateView.bind(this)}>添加</button>
+        </ul>
+        <ul>
+         {
+           this.state.list.map((item: string, index: number) => {
+             return (
+              <li key={index}>
+                <span>{item}</span> 
+                <button onClick={this.deleteItem.bind(this,index)}>删除</button>
+              </li>
+             );
+           })
+         }
+        </ul>
       </div>
     );
   }
