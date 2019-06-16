@@ -1,6 +1,8 @@
 import React, { Props } from 'react';
 import './App.css';
 import LOCAL_STORAGE_FIELD from './CONFIG';
+import autobind from './utils/autobind';
+
 export default class App extends React.Component<Props<any>, {}> {
   public state: any;
   constructor(props: any) {
@@ -11,6 +13,8 @@ export default class App extends React.Component<Props<any>, {}> {
       inputValue: '',
     };
   }
+
+  @autobind
   private updateView() {
     // 值合法，再执行
     if(!!this.state.inputValue) {
@@ -21,13 +25,15 @@ export default class App extends React.Component<Props<any>, {}> {
     }
   }
   public keypress = (e: React.KeyboardEvent) =>  e.which === 13 ? this.updateView(): '';
- 
+
+  @autobind
   public handleChange(e:any) {
     this.setState({
       inputValue: e.target.value,
     });
   }
 
+  @autobind
   public deleteItem(i: number){
    const list = [...this.state.list];
    list.splice(i,1);
@@ -39,8 +45,8 @@ export default class App extends React.Component<Props<any>, {}> {
     return (
       <div className="App">
         <ul>
-          <input type="text" value={this.state.inputValue} onKeyPress={this.keypress.bind(this)} onChange={this.handleChange.bind(this)} />
-          <button onClick={this.updateView.bind(this)}>添加</button>
+          <input type="text" value={this.state.inputValue} onKeyPress={this.keypress.bind(this)} onChange={this.handleChange} />
+          <button onClick={this.updateView}>添加</button>
         </ul>
         <ul>
          {
