@@ -1,9 +1,5 @@
 .App {
-  padding-top: 20px;
-  width: 400px;
-  margin: auto;
-  text-align: center;
-  img {
+  img.image {
     display: block;
     width: 60px;
     height: 60px;
@@ -12,33 +8,32 @@
       transform: rotate(360deg);
     }
   }
+  padding-top: 20px;
+  width: 400px;
+  margin: auto;
+  text-align: center;
   ul {
+    width: 100%;
     padding: 0;
     margin: 0;
     li {
       list-style: none;
       text-align: left;
     }
-    &:nth-child(1) {
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      justify-content: flex-start;
-      input {
-        width: 350px;
-      }
-      button {
-        width: 45px;
-        margin-left: 5px;
-      }
-    }
-    &:nth-child(2) {
-      margin-top: 20px;
-      li {
-        margin-top: 10px;
-        display: flex;
-        justify-content: space-around;
-      }
-    }
   }
+  .item-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    height: 30px;
+  }
+  .item-container button {
+    margin-left: 10px;
+  }
+  .item-container li {
+    max-width: 347px;
+    overflow: hidden;
+  }
+  
 }
