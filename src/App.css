@@ -43,3 +43,18 @@ img:hover {
   list-style: none;
   text-align: left;
 }
+
+.item-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  height: 30px;
+}
+.item-container button {
+  margin-left: 10px;
+}
+.item-container li {
+  max-width: 347px;
+  overflow: hidden;
+}
