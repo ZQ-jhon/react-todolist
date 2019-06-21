@@ -62,7 +62,7 @@ export default class App extends Component<Props<any>, {}> {
         <h5>使用localStorage进行数据缓存</h5>
           <ul className="flex-container">
             <input type="text" value={this.state.inputValue} onKeyPress={this.keypress.bind(this)} onChange={this.handleChange} />
-            <button onClick={this.updateView}>添加</button>
+            <button className="btn btn-default" onClick={this.updateView}>添加</button>
           </ul>
           <ul> {this.getAllItems()} </ul>
         </div>

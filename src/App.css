@@ -25,6 +25,20 @@
     .App ul li {
       list-style: none;
       text-align: left; }
+    .App ul .btn {
+      outline: none;
+      padding: 0;
+      width: 50px;
+      height: 28px;
+      border: none;
+      font-size: 12px;
+      cursor: pointer;
+      border-radius: 3px;
+      color: #fff; }
+    .App ul .btn-default {
+      background: #61dafb; }
+    .App ul .btn-danger {
+      background: #d9534f; }
   .App .item-container {
     border-bottom: 1px dashed;
     margin-top: 10px;

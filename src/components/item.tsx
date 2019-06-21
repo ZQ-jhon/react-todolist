@@ -15,10 +15,7 @@ export default class Item extends Component<Props<any>, {}> {
                     <span className="item-content">{content}</span>
                 </li>
                 <li>
-                    <span className="little-date">
-                        创建于{new Date().toLocaleDateString()}
-                    </span>
-                    <button onClick={this.handleDelete}>删除</button>
+                    <button onClick={this.handleDelete} className="btn btn-danger">删除</button>
                 </li>
             </div>
         );
