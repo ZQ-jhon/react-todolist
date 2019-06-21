@@ -1,4 +1,4 @@
-import React, { Props,Component } from 'react';
+import React, { Props, Component } from 'react';
 import autobind from '../utils/autobind';
 export default class Item extends Component<Props<any>, {}> {
     public props: any;
@@ -7,11 +7,19 @@ export default class Item extends Component<Props<any>, {}> {
         this.props.handleDelete(this.props.index);
     }
     public render() {
-        const {content} = this.props;
+        const { content } = this.props;
         return (
             <div className="item-container">
-                <li>{content}</li>
-                <button onClick={this.handleDelete}>删除</button>
+                <li>
+                    <span className="item-title">[第 {this.props.index} 项]:</span>
+                    <span className="item-content">{content}</span>
+                </li>
+                <li>
+                    <span className="little-date">
+                        创建于{new Date().toLocaleDateString()}
+                    </span>
+                    <button onClick={this.handleDelete}>删除</button>
+                </li>
             </div>
         );
     }
