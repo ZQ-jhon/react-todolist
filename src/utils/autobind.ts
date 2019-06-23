@@ -1,4 +1,4 @@
-function boundMethod(target, key, descriptor) {
+function boundMethod(target: any, key: string | number | symbol, descriptor: PropertyDescriptor) {
 	let fn = descriptor.value;
 
 	if (typeof fn !== 'function') {
@@ -12,7 +12,7 @@ function boundMethod(target, key, descriptor) {
 		get() {
 			// eslint-disable-next-line no-prototype-builtins
 			if (definingProperty || this === target.prototype || this.hasOwnProperty(key) ||
-        typeof fn !== 'function') {
+				typeof fn !== 'function') {
 				return fn;
 			}
 
@@ -31,7 +31,7 @@ function boundMethod(target, key, descriptor) {
 			definingProperty = false;
 			return boundFn;
 		},
-		set(value) {
+		set(value: any) {
 			fn = value;
 		}
 	};
@@ -40,7 +40,7 @@ function boundMethod(target, key, descriptor) {
 /**
  * Use boundMethod to bind all methods on the target.prototype
  */
-function boundClass(target) {
+function boundClass(target: any) {
 	// (Using reflect to get all keys including symbols)
 	let keys;
 	// Use Reflect if exists
@@ -50,17 +50,17 @@ function boundClass(target) {
 		keys = Object.getOwnPropertyNames(target.prototype);
 		// Use symbols if support is provided
 		if (typeof Object.getOwnPropertySymbols === 'function') {
-			keys = keys.concat(Object.getOwnPropertySymbols(target.prototype));
+			keys = keys.concat(Object.getOwnPropertySymbols(target.prototype).toString());
 		}
 	}
 
-	keys.forEach(key => {
+	keys.forEach((key: string | number | symbol) => {
 		// Ignore special case target method
 		if (key === 'constructor') {
 			return;
 		}
 
-		const descriptor = Object.getOwnPropertyDescriptor(target.prototype, key);
+		const descriptor = Object.getOwnPropertyDescriptor(target.prototype, key) as PropertyDescriptor;
 
 		// Only methods need binding
 		if (typeof descriptor.value === 'function') {
@@ -70,9 +70,9 @@ function boundClass(target) {
 	return target;
 }
 
-export default function autobind(...args) {
+export default function autobind(...args: Array<any>) {
 	if (args.length === 1) {
-		return boundClass(...args);
+		return boundClass(args[0]);
 	}
-	return boundMethod(...args);
+	return boundMethod(args[0], args[1], args[2]);
 }
