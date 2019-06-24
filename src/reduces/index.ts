@@ -9,7 +9,7 @@ export interface Payload {
   uuid: string;
   date?: number;
 }
-interface Action {
+export interface Action {
   type: "ADD_ITEM" | "DELETE_ITEM";
   payload: Payload;
 }
