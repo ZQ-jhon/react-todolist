@@ -1,7 +1,7 @@
 import React, { Component, Fragment, Props } from 'react';
 import { createStore } from 'redux';
 import { v4 } from 'uuid';
-import './App.css';
+import './App.scss';
 import Item from './components/item';
 import reducer, { Payload } from './reduces/index';
 import autobind from './utils/autobind';
