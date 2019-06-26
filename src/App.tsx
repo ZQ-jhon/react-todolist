@@ -8,47 +8,7 @@ import Item from './components/item/item';
 import {Payload} from './interfaces/payload.interface';
 export default class App extends Component<Props<any>, {}> {
   public state: any;
-
-  /** init hook */
   public componentWillMount() {
-    // TODO: adding react-redux
-    // /**
-    //  * 内部状态 => props 映射，即 事件 => viewModel
-    //  * 视图到 modal
-    //  */
-    // const mapStateToProps: MapStateToProps<string, string, { inputValue: string }> = (state = this.state) => state.inputValue;
-    // /**
-    //  * dispatch => props 映射，即 数据 => viewModel
-    //  * modal 到视图
-    //  */
-    // const mapDispatchToProps = (dispatch: Dispatch<Action>, ownProps: string) => {
-    //   return {
-    //     "ADD_ITEM": (inputs: string) => dispatch({
-    //       type: "ADD_ITEM",
-    //       payload: {
-    //         text: inputs,
-    //         uuid: v4(),
-    //       },
-    //     }),
-    //     "DELETE_ITEM": (uuid: string) => dispatch({
-    //       type: "DELETE_ITEM",
-    //       payload: {
-    //         text: '',
-    //         uuid
-    //       },
-    //     }),
-    //   }
-    // }
-    // /**
-    //  * connect 两个 map 函数为：
-    //  * [1] => 视图到 modal
-    //  * [2] => modal 到视图
-    //  * 而这两个函数可以被当作 ViewModel 本身
-    //  */
-    // connect(
-    //   mapStateToProps,
-    //   mapDispatchToProps,
-    // )(App);
     this.setState({ inputValue: '' });
   }
 

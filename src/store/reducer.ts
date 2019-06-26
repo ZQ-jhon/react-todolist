@@ -3,12 +3,19 @@ import { Payload } from '../interfaces/payload.interface';
 import { Action } from '../interfaces/action.interface';
 
 function expand(origin: any) {
-  return typeof origin === 'string'
-    ? Array.isArray(JSON.parse(STORAGE.list)) ? JSON.parse(STORAGE.list) : []
-    : [];
+  let state = [];
+  try {
+    state = Array.isArray(JSON.parse(origin)) ? JSON.parse(STORAGE.list) : [];
+  } catch (err) {
+    console.warn(`JSON parse 错误，localstorage 有误!`);
+    state = [];
+  }
+  return state;
 }
+const initialState: Array<Payload> = !!STORAGE.list ? expand(STORAGE.list) : [];
 
-export default (state: Array<Payload> = !!STORAGE.list ? expand(STORAGE.list) : [], action: Action) => {
+
+export default (state = initialState, action: Action) => {
   switch (action.type) {
     case "ADD_ITEM":
       action.payload.date = new Date().getTime();
