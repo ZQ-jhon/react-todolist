@@ -1,4 +1,4 @@
-import STORAGE from '../localstorage/CONFIG';
+import STORAGE from '../interfaces/localstorage.interface';
 import { Payload } from '../interfaces/payload.interface';
 import { Action } from '../interfaces/action.interface';
 

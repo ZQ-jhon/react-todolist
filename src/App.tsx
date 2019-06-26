@@ -1,5 +1,5 @@
 import React, { Component, Fragment, Props } from 'react';
-import './App.scss';
+import './styles/App.scss';
 import autobind from './utils/autobind';
 import { v4 } from 'uuid';
 import store from './store/store';
