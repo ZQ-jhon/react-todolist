@@ -1,5 +1,5 @@
 import React, { Props, Component } from 'react';
-import autobind from '../utils/autobind';
+import autobind from '../../utils/autobind';
 export default class Item extends Component<Props<any>, {}> {
     public props: any;
     @autobind

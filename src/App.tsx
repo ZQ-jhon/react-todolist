@@ -1,14 +1,13 @@
 import React, { Component, Fragment, Props } from 'react';
-import { createStore } from 'redux';
-import { v4 } from 'uuid';
 import './App.scss';
-import Item from './components/item';
-import reducer, { Payload } from './reduces/index';
 import autobind from './utils/autobind';
+import { v4 } from 'uuid';
+import store from './store/store';
+import {Provider} from 'react-redux';
+import Item from './components/item/item';
+import {Payload} from './interfaces/payload.interface';
 export default class App extends Component<Props<any>, {}> {
-  public store = createStore(reducer);
   public state: any;
-
 
   /** init hook */
   public componentWillMount() {
@@ -57,14 +56,14 @@ export default class App extends Component<Props<any>, {}> {
   private updateView() {
     // 值合法，再执行
     if (!!this.state.inputValue) {
-      this.store.dispatch({
+      store.dispatch({
         type: "ADD_ITEM",
         payload: {
           text: this.state.inputValue,
           uuid: v4(),
         },
       });
-      localStorage.setItem('list', JSON.stringify(this.store.getState()));
+      localStorage.setItem('list', JSON.stringify(store.getState()));
       this.setState({ inputValue: '' });
     }
   }
@@ -83,20 +82,20 @@ export default class App extends Component<Props<any>, {}> {
 
   @autobind
   public deleteItem(uuid: string) {
-    const payloads = this.store.getState();
+    const payloads = store.getState();
     const payload = !!payloads.find(item => item.uuid === uuid) ? (payloads.find(item => item.uuid === uuid) as Payload) : { uuid: '', text: '' };
-    this.store.dispatch({
+    store.dispatch({
       type: "DELETE_ITEM",
       payload,
     });
     // TODO: DELETE THIS ROW
     this.setState({ input: this.state.inputValue });
-    localStorage.setItem('list', JSON.stringify(this.store.getState()));
+    localStorage.setItem('list', JSON.stringify(store.getState()));
   }
 
   @autobind
   public getAllItems() {
-    const items = Array.isArray(this.store.getState()) ? this.store.getState() : [];
+    const items = Array.isArray(store.getState()) ? store.getState() : [];
     return items.map((item, index: number) => {
       return (
         (<Item handleDelete={this.deleteItem} key={index} index={index} content={item} />)
@@ -106,7 +105,7 @@ export default class App extends Component<Props<any>, {}> {
 
   public render() {
     return (
-      // <Provider store={this.store}>
+      <Provider store={store}>
       <Fragment>
         <div className="App">
           <img className="image" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9Ii0xMS41IC0xMC4yMzE3NCAyMyAyMC40NjM0OCI+CiAgPHRpdGxlPlJlYWN0IExvZ288L3RpdGxlPgogIDxjaXJjbGUgY3g9IjAiIGN5PSIwIiByPSIyLjA1IiBmaWxsPSIjNjFkYWZiIi8+CiAgPGcgc3Ryb2tlPSIjNjFkYWZiIiBzdHJva2Utd2lkdGg9IjEiIGZpbGw9Im5vbmUiPgogICAgPGVsbGlwc2Ugcng9IjExIiByeT0iNC4yIi8+CiAgICA8ZWxsaXBzZSByeD0iMTEiIHJ5PSI0LjIiIHRyYW5zZm9ybT0icm90YXRlKDYwKSIvPgogICAgPGVsbGlwc2Ugcng9IjExIiByeT0iNC4yIiB0cmFuc2Zvcm09InJvdGF0ZSgxMjApIi8+CiAgPC9nPgo8L3N2Zz4K" alt="logo" />
@@ -119,7 +118,7 @@ export default class App extends Component<Props<any>, {}> {
           <ul> {this.getAllItems()} </ul>
         </div>
       </Fragment>
-      // </Provider>
+      </Provider>
     );
   }
 }

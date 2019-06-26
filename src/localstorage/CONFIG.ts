@@ -1,8 +1,5 @@
 
-interface IStorage {
-    list: string;
-}
-const STORAGE: IStorage = {
+const STORAGE: { list: string } = {
     list: window.localStorage.getItem('list') || '',
 };
 

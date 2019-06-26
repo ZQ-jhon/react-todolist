@@ -5,7 +5,7 @@ const ACTIONS = {
 };
 type ActionType = keyof typeof ACTIONS;
 
-const todoItemHandler = (text: string, type: ActionType) => {
+const actionBuilder = (text: string, type: ActionType) => {
     return {
         type,
         payload: {
@@ -14,4 +14,4 @@ const todoItemHandler = (text: string, type: ActionType) => {
         }
     }
 };
-export default todoItemHandler;
+export default actionBuilder;

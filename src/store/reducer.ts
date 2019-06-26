@@ -1,18 +1,6 @@
-// import todoItemHandler from '../actions/todo-item-handler';
 import STORAGE from '../localstorage/CONFIG';
-
-/** 提取返回值类型 */
-// export type Action = ReturnType<typeof todoItemHandler>;
-// export type Payload = ReturnType<typeof todoItemHandler>["payload"];
-export interface Payload {
-  text: string;
-  uuid: string;
-  date?: number;
-}
-export interface Action {
-  type: "ADD_ITEM" | "DELETE_ITEM";
-  payload: Payload;
-}
+import { Payload } from '../interfaces/payload.interface';
+import { Action } from '../interfaces/action.interface';
 
 function expand(origin: any) {
   return typeof origin === 'string'
